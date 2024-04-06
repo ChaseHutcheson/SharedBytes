@@ -62,6 +62,7 @@ export const AuthProvider = ({ children }: any) => {
         setLoading(true);
         try {
             const tokens = await signUp(username, email, password)
+            console.log(tokens)
             console.log(tokens.access_token)
             const user: User = await getMe(tokens.access_token)
 

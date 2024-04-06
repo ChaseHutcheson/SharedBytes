@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 34,
         fontWeight: 'bold',
-        fontFamily: "DmSans",
         marginVertical: 5
 
     },
