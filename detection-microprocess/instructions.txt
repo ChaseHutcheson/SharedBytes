@@ -1,0 +1,16 @@
+1 clone yolo
+    1 cd into this path
+    2 git clone https://github.com/ultralytics/yolov5
+
+2 download dependencys
+    1 pip install -r requ.txt
+3 get data
+    run importData.py
+4 train model (optional)
+    tinker w/ file paths in data until it works
+    test: ../data/test/images
+    train: ../data/train/images
+    val: ../data/valid/images
+    run the trainModel script in terminal
+5 start / run main.py
+    self explainitory

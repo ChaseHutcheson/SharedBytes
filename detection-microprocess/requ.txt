@@ -1,0 +1,107 @@
+asgiref==3.8.1
+certifi==2023.7.22
+chardet==4.0.0
+charset-normalizer==3.3.2
+colorama==0.4.6
+contourpy==1.2.1
+cycler==0.10.0
+Django==5.0.4
+filelock==3.13.3
+fonttools==4.51.0
+fsspec==2024.3.1
+gitdb==4.0.11
+GitPython==3.1.43
+idna==2.10
+pandas
+torch
+Jinja2==3.1.3
+kiwisolver==1.4.5
+MarkupSafe==2.1.5
+matplotlib==3.8.4
+mpmath==1.3.0
+networkx==3.2.1
+numpy==1.26.4
+opencv-python==4.9.0.80
+opencv-python-headless==4.8.0.74
+packaging==24.0
+pandas==2.2.1
+pillow==10.3.0
+psutil==5.9.8
+py-cpuinfo==9.0.0
+pyparsing==3.1.2
+pyperclip==1.8.2
+python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
+python-magic==0.4.27
+pytz==2024.1
+PyYAML==6.0.1
+requests==2.31.0
+requests-toolbelt==1.0.0
+roboflow==1.1.26
+scipy==1.13.0
+seaborn==0.13.2
+setuptools==69.2.0
+six==1.16.0
+smmap==5.0.1
+sqlparse==0.4.4
+sympy==1.12
+thop==0.1.1.post2209072238
+torch==2.2.2
+torchvision==0.17.2
+tqdm==4.66.2
+typing_extensions==4.11.0
+tzdata==2024.1
+ultralytics==8.1.43
+urllib3==2.2.1
+wheel==0.43.0
+
+# YOLOv5 requirements
+# Usage: pip install -r requirements.txt
+
+# Base ------------------------------------------------------------------------
+gitpython>=3.1.30
+matplotlib>=3.3
+numpy>=1.23.5
+opencv-python>=4.1.1
+Pillow>=9.4.0
+psutil  # system resources
+PyYAML>=5.3.1
+requests>=2.23.0
+scipy>=1.4.1
+thop>=0.1.1  # FLOPs computation
+torch>=1.8.0  # see https://pytorch.org/get-started/locally (recommended)
+torchvision>=0.9.0
+tqdm>=4.64.0
+ultralytics>=8.0.232
+# protobuf<=3.20.1  # https://github.com/ultralytics/yolov5/issues/8012
+
+# Logging ---------------------------------------------------------------------
+# tensorboard>=2.4.1
+# clearml>=1.2.0
+# comet
+
+# Plotting --------------------------------------------------------------------
+pandas>=1.1.4
+seaborn>=0.11.0
+
+# Export ----------------------------------------------------------------------
+# coremltools>=6.0  # CoreML export
+# onnx>=1.10.0  # ONNX export
+# onnx-simplifier>=0.4.1  # ONNX simplifier
+# nvidia-pyindex  # TensorRT export
+# nvidia-tensorrt  # TensorRT export
+# scikit-learn<=1.1.2  # CoreML quantization
+# tensorflow>=2.4.0,<=2.13.1  # TF exports (-cpu, -aarch64, -macos)
+# tensorflowjs>=3.9.0  # TF.js export
+# openvino-dev>=2023.0  # OpenVINO export
+
+# Deploy ----------------------------------------------------------------------
+setuptools>=65.5.1 # Snyk vulnerability fix
+# tritonclient[all]~=2.24.0
+
+# Extras ----------------------------------------------------------------------
+# ipython  # interactive notebook
+# mss  # screenshots
+# albumentations>=1.0.3
+# pycocotools>=2.0.6  # COCO mAP
+wheel>=0.38.0 # not directly required, pinned by Snyk to avoid a vulnerability
