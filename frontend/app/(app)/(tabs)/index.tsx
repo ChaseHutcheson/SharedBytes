@@ -10,7 +10,7 @@ const pic = 'https://cdn.discordapp.com/attachments/1196283193821761586/12260059
     <View style={styles.container}>
       <Image source={{ uri: pic }} style={styles.image}/>
       <Text style={styles.title}>SharedBytes</Text>
-      <Text style={styles.underText}>Nourishing communities one at a time.</Text>
+      <Text style={styles.underText}>Nourishing communities one byte at a time.</Text>
       <Button text='Create Account'></Button>
       <Pressable style={styles.button}>
         <Text style={styles.buttonText}>Login</Text>
