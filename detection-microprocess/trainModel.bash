@@ -1,1 +1,1 @@
-python .\ai-testing\yolov5\train.py --img 640 --epochs 10 --data ./ai-testing/data/data.yaml --weights yolov5s.pt --nosave --cache
+python .\yolov5\train.py --img 640 --epochs 10 --data ./data/data.yaml --weights yolov5s.pt --cache
