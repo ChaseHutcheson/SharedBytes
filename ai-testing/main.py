@@ -2,6 +2,7 @@
 import numpy, cv2, time, os
 from PIL import Image
 import torch
+import pandas
 
 # capturing video in real time
 cap = cv2.VideoCapture(1)
@@ -14,17 +15,24 @@ def objRecognition():
     # os.system("python ./ai-testing/yolov5/detect.py --weights ai-testing\\yolov5\\runs\\train\exp6\\weights\\best.pt --source ./ai-testing/curImg.png")
     # print("1")
 
-
-
     # Model
-    model = torch.hub.load(r'./ai-testing/yolov5/runs/train/exp6/weights/best.pt', 'best', source='local')
+    model = torch.hub.load('./ai-testing/yolov5/', 'custom', path="./ai-testing/yolov5/runs/train/exp6/weights/best.pt", source='local')
 
     # Image
     im = cv2.imread(".\\ai-testing\\curImg.png")
 
     # Inference
     results = model(im)
-    print(results)
+
+    #convert to pandas 
+    data_frame = results.pandas().xyxy[0]
+
+    labels = []
+    indexes = data_frame.index
+    for index in indexes:
+        labels.append(data_frame['name'][index])
+    
+    print(labels)
 
 
 while cap.isOpened():
