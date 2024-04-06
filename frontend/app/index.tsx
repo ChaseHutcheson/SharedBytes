@@ -17,7 +17,7 @@ export default function App() {
       <View style={styles.container}>
         <Image source={{ uri: pic }} style={styles.image}/>
         <Text style={styles.title}>SharedBytes</Text>
-        <Text style={styles.underText}>Nourishing communities one at a time.</Text>
+        <Text style={styles.underText}>Nourishing communities one byte at a time.</Text>
         
         <Button text='Create Account'></Button>
         
