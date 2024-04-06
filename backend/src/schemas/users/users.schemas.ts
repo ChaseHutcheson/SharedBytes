@@ -1,5 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString } from 'class-validator';
+import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { isRegExp } from 'util/types';
 
 // schema that is used when a user is pulled from the database
 export class UserProfileSchema {
@@ -61,3 +62,6 @@ export class CreateUserSchema {
 	@ApiProperty({ example: 'string', description: 'Password' })
 	password: string;
 }
+
+// Schema used for updating users
+export class UpdateUserSchema extends PartialType(CreateUserSchema) {}

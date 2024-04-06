@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Request } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Patch,
+	Request,
+} from '@nestjs/common';
 import {
 	ApiBearerAuth,
 	ApiOAuth2,
@@ -9,6 +17,7 @@ import {
 import { Public } from 'src/decorators/public.decorator';
 import {
 	CreateUserSchema,
+	UpdateUserSchema,
 	UserInDbSchema,
 	UserProfileSchema,
 } from 'src/schemas/users/users.schemas';
@@ -35,8 +44,25 @@ export class UsersController {
 		description: 'Access Forbidden',
 	})
 	@ApiOperation({ summary: 'Get User Me' })
-	getProfile(@Request() req) {
+	getProfile(@Request() req): Promise<User> {
 		return this.usersService.findById(req.user.sub);
+	}
+
+	@Patch('me/update')
+	@ApiResponse({
+		status: 200,
+		type: UserProfileSchema,
+	})
+	@ApiResponse({
+		status: 401,
+		description: 'Access Forbidden',
+	})
+	@ApiOperation({ summary: 'Update your user information' })
+	updateProfile(
+		@Request() req,
+		@Body() update: UpdateUserSchema
+	): Promise<User> {
+		return this.usersService.updateUser(req.user.sub, update);
 	}
 
 	@Get('all')

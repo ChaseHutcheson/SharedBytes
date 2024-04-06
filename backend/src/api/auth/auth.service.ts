@@ -20,7 +20,7 @@ export class AuthService {
 		private jwtService: JwtService
 	) {}
 
-	async register(createUserIn: CreateUserSchema): Promise<User> {
+	async register(createUserIn: CreateUserSchema): Promise<any> {
 		const { username, email, password } = createUserIn;
 		const hashedPassword = hashPassword(password);
 
@@ -30,7 +30,9 @@ export class AuthService {
 			password: hashedPassword,
 		});
 
-		return user;
+		const payload = { sub: user.id, email: user.email };
+
+		return { access_token: await this.jwtService.signAsync(payload) };
 	}
 
 	async signIn(email: string, password: string): Promise<any> {
