@@ -1,8 +1,9 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { useAuth } from '@/context/AuthContext'
-import { Link, Redirect } from 'expo-router'
+import { Link, Redirect, router } from 'expo-router'
 import Button from '@/components/button'
+import { useFonts } from 'expo-font'
 
 export default function App() {
     const { isAuthenticated } = useAuth()
@@ -17,9 +18,9 @@ export default function App() {
       <View style={styles.container}>
         <Image source={{ uri: pic }} style={styles.image}/>
         <Text style={styles.title}>SharedBytes</Text>
-        <Text style={styles.underText}>Nourishing communities one at a time.</Text>
+        <Text style={styles.underText}>Nourishing communities one byte at a time.</Text>
         
-        <Button text='Create Account'></Button>
+        <Button text='Create Account' onPress={() => {router.push("/(auth)/sign-up")}}></Button>
         
         <TouchableOpacity style={styles.button}>
             <Link href="/(auth)/sign-in">
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
       marginVertical: 5
     },
     underText: {
-      fontSize: 17,
+      fontSize: 15,
       fontWeight: '600',
       marginBottom: 90
     },
