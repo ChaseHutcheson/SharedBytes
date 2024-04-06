@@ -1,0 +1,14 @@
+names:
+- can
+- drink
+- snack
+nc: 3
+roboflow:
+  license: CC BY 4.0
+  project: food-recognition-q6fph
+  url: https://universe.roboflow.com/hungarai/food-recognition-q6fph/dataset/4
+  version: 4
+  workspace: hungarai
+test: ../test/images
+train: ./ai-testing/data/train/images
+val: ./ai-testing/data/valid/images
