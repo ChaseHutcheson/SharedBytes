@@ -12,6 +12,8 @@ fsspec==2024.3.1
 gitdb==4.0.11
 GitPython==3.1.43
 idna==2.10
+pandas
+torch
 Jinja2==3.1.3
 kiwisolver==1.4.5
 MarkupSafe==2.1.5
