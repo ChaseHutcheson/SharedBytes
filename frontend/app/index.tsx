@@ -7,7 +7,7 @@ export default function App() {
     const { isAuthenticated } = useAuth()
 
     if (isAuthenticated) {
-        return <Redirect href="/(app)/(tabs)/" />
+        return <Redirect href="/(app)/(tabs)/two" />
     }
 
     return (

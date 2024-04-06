@@ -1,12 +1,16 @@
 import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, Touchable, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useAuth } from '@/context/AuthContext';
-import { Link } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { contextSignIn } = useAuth();
+    const { contextSignIn, isAuthenticated } = useAuth();
+
+    if (isAuthenticated) {
+        return <Redirect href="/(app)/(tabs)/" />
+    }
 
     return (
         <SafeAreaView style={{marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}}>

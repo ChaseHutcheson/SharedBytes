@@ -11,15 +11,10 @@ export default function _layout() {
 
     return (
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            {isAuthenticated ? (
+
                     <Stack>
                         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                     </Stack>
-                ) : (
-                    <Stack>
-                        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                    </Stack>
-                )}
         </ThemeProvider>
     )
 }

@@ -40,10 +40,10 @@ export const AuthProvider = ({ children }: any) => {
         setLoading(true)
         try {
             const tokens = await signIn(email, password);
+            console.log(tokens.access_token)
+            const user: User = await getMe(tokens.access_token);
 
-            const user: User = await getMe(tokens);
-
-            await SecureStore.setItemAsync("access_token", tokens);
+            await SecureStore.setItemAsync("access_token", tokens.access_token);
 
             setUser(user);
             setAuthToken(tokens.access_token);
@@ -62,13 +62,13 @@ export const AuthProvider = ({ children }: any) => {
         setLoading(true);
         try {
             const tokens = await signUp(username, email, password)
-
+            console.log(tokens.access_token)
             const user: User = await getMe(tokens.access_token)
 
             await SecureStore.setItemAsync("access_token", tokens.access_token);
 
             setUser(user);
-            setAuthToken(tokens.data.access_token);
+            setAuthToken(tokens.access_token);
             setAuthenticated(true);
             setLoading(false);
         } catch (error) {

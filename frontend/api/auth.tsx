@@ -10,10 +10,10 @@ export const signIn = async (email: string, password: string) => {
                 "email": email,
                 "password": password
             })
-
+            console.log("Response Successful!")
             return response.data
         } catch (error) {
-            console.log(API_URL)
+            console.log(`${API_URL}/register`)
             console.error(error)
             return error
         }
@@ -29,18 +29,15 @@ export const signUp = async (username: string, email: string, password: string) 
     const isEmailValid = validateEmail(email)
     if (isEmailValid) {
         try {
-            const test = axios.create({
-                baseURL: `${API_URL}`
-            })
-            const response = await test.post(`/register`, {
+            const response = await axios.post(`${API_URL}/register`, {
                 "email": email,
                 "username": username,
                 "password": password
             })
-
+            console.log("Response Successful!")
             return response.data
         } catch (error) {
-            console.log(API_URL, "/register")
+            console.log(`${API_URL}/register`)
             console.error(error)
             return error
         }
