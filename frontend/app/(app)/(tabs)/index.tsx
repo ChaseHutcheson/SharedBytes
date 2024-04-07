@@ -1,10 +1,12 @@
-import { Text, View } from "@/components/Themed";
+import { Text } from "@/components/Themed";
 import Button from "@/components/button";
 import { useAuth } from "@/context/AuthContext";
-import { Center } from "native-base";
+import { Feather } from "@expo/vector-icons";
+import { Box, Center, Icon, View } from "native-base";
 import { getFooddBanks } from "@/api/foodBank";
 import { useAsync, useMountEffect } from "@react-hookz/web";
 import { useEffect } from "react";
+import { Platform, SafeAreaView, StatusBar } from "react-native";
 
 export default function TabOneScreen() {
   const { user } = useAuth();
@@ -19,60 +21,109 @@ export default function TabOneScreen() {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View>
-        <View
-          style={{
-            top: 100,
-            left: -90,
-            justifyContent: "center",
-            marginBottom: "50%",
-          }}
-        >
-          <Text style={{ fontSize: 34, fontWeight: "bold", marginVertical: 5 }}>
-            {user?.username}
-          </Text>
-          <Text style={{ fontSize: 17, fontWeight: "600" }}>Welcome!</Text>
-        </View>
-        <Center>
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: 200,
-              height: 200,
-              borderRadius: 100,
-              borderWidth: 1,
-              borderColor: "transparent",
-              shadowColor: "#31A062",
-              shadowOpacity: 1,
-              shadowRadius: 15,
-            }}
+    <SafeAreaView
+      style={{
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1,
+      }}
+    >
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignSelf: "baseline" }}>
+          <Box
+            bgColor="gray.200"
+            borderRadius={90}
+            width={16}
+            height={16}
+            style={{ marginLeft: 15, marginRight: 5 }}
           >
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>
-              Byte Tracker
+            <Center>
+              <Icon as={Feather} name="user" size={10} my={3} />
+            </Center>
+          </Box>
+          <View style={{ flexDirection: "column", gap: -6 }}>
+            <Text style={{ fontSize: 34, fontWeight: "bold" }}>
+              {user?.username}
             </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                fontWeight: "400",
+                color: "grey",
+                marginLeft: 3,
+              }}
+            >
+              Welcome!
+            </Text>
+          </View>
+        </View>
+        <View style={{ alignItems: "baseline" }}>
+          <View style={{}}>
+            <Center>
+              <View
+                style={
+                  Platform.OS === "ios"
+                    ? {
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 200,
+                        height: 200,
+                        borderRadius: 100,
+                        borderWidth: 1,
+                        borderColor: "transparent",
+                        shadowColor: "#31A062",
+                        shadowOpacity: 1,
+                        shadowRadius: 15,
+                      }
+                    : {
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 200,
+                        height: 200,
+                        borderRadius: 100,
+                        borderWidth: 1,
+                        borderColor: "transparent",
+                        shadowColor: "#31A062",
+                        shadowOpacity: 1,
+                        shadowRadius: 15,
+                      }
+                }
+              >
+                <Text style={{ fontSize: 17, fontWeight: "600" }}>
+                  Byte Tracker
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 34,
+                    fontWeight: "bold",
+                    marginVertical: 5,
+                  }}
+                >
+                  1,234
+                </Text>
+                <Text style={{ fontSize: 17, fontWeight: "600" }}>status</Text>
+              </View>
+            </Center>
+          </View>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
             <Text
               style={{ fontSize: 34, fontWeight: "bold", marginVertical: 5 }}
             >
-              1,234
+              SharedBytes
             </Text>
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>status</Text>
+            <Text style={{ fontSize: 17, fontWeight: "600" }}>
+              HACK YSU Foodbank
+            </Text>
+            <Text style={{ fontSize: 17, fontWeight: "600" }}>
+              MCCTC Foodbank
+            </Text>
+            <Text style={{ fontSize: 17, fontWeight: "600" }}>
+              Cincinatti Foodbank
+            </Text>
           </View>
-        </Center>
+        </View>
       </View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ fontSize: 34, fontWeight: "bold", marginVertical: 5 }}>
-          SharedBytes
-        </Text>
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>
-          HACK YSU Foodbank
-        </Text>
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>MCCTC Foodbank</Text>
-        <Text style={{ fontSize: 17, fontWeight: "600" }}>
-          Cincinatti Foodbank
-        </Text>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
