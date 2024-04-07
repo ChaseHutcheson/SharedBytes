@@ -13,7 +13,6 @@ import { useAuth } from "@/context/AuthContext";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
-import { Form } from "react-hook-form";
 
 export default function TabTwoScreen() {
   const { user } = useAuth();
@@ -57,7 +56,7 @@ export default function TabTwoScreen() {
             />
             <FormControl.Label>New Email</FormControl.Label>
             <Input placeholder="New Email" type="text" />
-            <Button mt={5} colorScheme="blue" onPress={() => {}}>
+            <Button mt={5} bgColor={'#31A062'} onPress={() => {}}>
               Save Changes
             </Button>
           </FormControl>
@@ -76,7 +75,7 @@ export default function TabTwoScreen() {
             <Input placeholder="New Password" type="password" />
             <FormControl.Label>Confirm New Password</FormControl.Label>
             <Input placeholder="Confirm New Password" type="password" />
-            <Button mt={5} colorScheme="blue" onPress={() => {}}>
+            <Button mt={5} bgColor={'#31A062'} onPress={() => {}}>
               Save Changes
             </Button>
           </FormControl>
