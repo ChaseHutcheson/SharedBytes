@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Bank {
+export class FoodBank {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -29,12 +29,12 @@ export class Bank {
 	@Column({ nullable: false })
 	zipCode: number;
 
-	@Column({ nullable: false })
+	@Column({ nullable: false, default: 0 })
 	cans: number;
 
-	@Column({ nullable: false })
+	@Column({ nullable: false, default: 0 })
 	snacks: number;
 
-	@Column({ nullable: false })
+	@Column({ nullable: false, default: 0 })
 	beverages: number;
 }
