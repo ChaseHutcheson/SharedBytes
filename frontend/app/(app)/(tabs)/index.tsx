@@ -2,23 +2,28 @@ import { Text } from "@/components/Themed";
 import Button from "@/components/button";
 import { useAuth } from "@/context/AuthContext";
 import { Feather } from "@expo/vector-icons";
-import { Box, Center, Icon, View } from "native-base";
-import { getFooddBanks } from "@/api/foodBank";
+import { Box, Center, Flex, Icon, ScrollView, View } from "native-base";
+import { FoodBankSchema, getFooddBanks } from "@/api/foodBank";
 import { useAsync, useMountEffect } from "@react-hookz/web";
-import { useEffect } from "react";
-import { Platform, SafeAreaView, StatusBar } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 
 export default function TabOneScreen() {
   const { user } = useAuth();
   const [foodBanksStatus, foodBanksActions] = useAsync(getFooddBanks);
-
-  const foodBanks = async () => {
-    await foodBanksActions.execute();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedFoodBank, setSelectedFoodBank] =
+    useState<FoodBankSchema | null>(null);
+  const handleFoodBankClick = (foodBank: FoodBankSchema): void => {
+    setSelectedFoodBank(foodBank);
+    setModalVisible(true);
   };
-
-  useMountEffect(() => {
-    foodBanks();
-  });
 
   return (
     <SafeAreaView
@@ -27,7 +32,7 @@ export default function TabOneScreen() {
         flex: 1,
       }}
     >
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View style={{ flex: 1, alignItems: "center", marginTop: "5%" }}>
         <View style={{ flexDirection: "row", alignSelf: "baseline" }}>
           <Box
             bgColor="gray.200"
@@ -40,7 +45,7 @@ export default function TabOneScreen() {
               <Icon as={Feather} name="user" size={10} my={3} />
             </Center>
           </Box>
-          <View style={{ flexDirection: "column", gap: -6 }}>
+          <View style={{ flexDirection: "column", marginBottom: "10%" }}>
             <Text style={{ fontSize: 34, fontWeight: "bold" }}>
               {user?.username}
             </Text>
@@ -69,10 +74,10 @@ export default function TabOneScreen() {
                         height: 200,
                         borderRadius: 100,
                         borderWidth: 1,
-                        borderColor: "transparent",
+                        borderColor: "black",
                         shadowColor: "#31A062",
                         shadowOpacity: 1,
-                        shadowRadius: 15,
+                        shadowRadius: 30,
                       }
                     : {
                         alignItems: "center",
@@ -105,25 +110,99 @@ export default function TabOneScreen() {
             </Center>
           </View>
           <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+            style={{
+              flex: 1,
+              alignItems: "flex-start",
+              justifyContent: "center",
+              width: "100%",
+            }}
           >
-            <Text
-              style={{ fontSize: 34, fontWeight: "bold", marginVertical: 5 }}
-            >
-              SharedBytes
-            </Text>
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>
-              HACK YSU Foodbank
-            </Text>
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>
-              MCCTC Foodbank
-            </Text>
-            <Text style={{ fontSize: 17, fontWeight: "600" }}>
-              Cincinatti Foodbank
-            </Text>
+            <Flex direction="row" align="center" justify="space-between" mb={4}>
+              <Text
+                style={{
+                  fontSize: 34,
+                  fontWeight: "bold",
+                  marginVertical: "15%",
+                }}
+              >
+                SharedBytes
+              </Text>
+            </Flex>
+            <ScrollView>
+              <Flex direction="column">
+                {[
+                  { name: "HACK YSU Foodbank", address: "Address 1" },
+                  { name: "MCCTC Foodbank", address: "Address 2" },
+                  { name: "Cincinatti Foodbank", address: "Address 3" },
+                ].map((foodBank) => (
+                  <TouchableOpacity
+                    key={foodBank.name}
+                    onPress={() =>
+                      handleFoodBankClick(foodBank as FoodBankSchema)
+                    }
+                  >
+                    <Flex direction="column" mb={2}>
+                      <Flex direction="row" align="center">
+                        <Icon as={Feather} name="arrow-up" size={6} mr={2} />
+                        <Text style={{ fontSize: 17, fontWeight: "600" }}>
+                          {foodBank.name}
+                        </Text>
+                      </Flex>
+                      <Text
+                        style={{ fontSize: 13, color: "grey", marginLeft: 3 }}
+                      >
+                        {foodBank.address}
+                      </Text>
+                    </Flex>
+                  </TouchableOpacity>
+                ))}
+              </Flex>
+            </ScrollView>
           </View>
         </View>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0,0,0,0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 20,
+              borderRadius: 10,
+              width: "80%",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              {selectedFoodBank?.name}
+            </Text>
+            <Text style={{ fontSize: 16 }}>{selectedFoodBank?.address}</Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Items</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <Box color="danger.400" bgColor="danger.400" borderRadius={40}>
+                <Text>Hide Modal</Text>
+              </Box>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
