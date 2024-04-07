@@ -6,26 +6,24 @@ import { useAuth } from '@/context/AuthContext';
 export default function TabOneScreen() {
   const { user } = useAuth()
 
-  const pic = 'https://cdn.discordapp.com/attachments/1196283193821761586/1226005913492787240/noun-cookie-6515787.png?ex=662331fb&is=6610bcfb&hm=7f6469b1debe2c78ed55c6e06dae97bb9d37d9668708a504fe9bee4accafc3e7&';
 
   return (
     <View style={styles.container}>
+      <View style={styles.leftContainer}>
       <Text style={styles.title}>{user?.username}</Text>
       <Text style={styles.underText}>Welcome!</Text>
-      <TouchableHighlight
-      style = {{
-        borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-        width: Dimensions.get('window').width * 0.5,
-        height: Dimensions.get('window').width * 0.5,
-        backgroundColor:'transparent',
-        borderColor: "#31A062",
-        borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <Text>Circle Test</Text>
-    </TouchableHighlight>
+      </View>
+      <View style={styles.circle}>
+        <Text style={styles.underText}>Byte Tracker</Text>
+        <Text style={styles.title}>1,234</Text>
+        <Text style={styles.underText}>status</Text>
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>SharedBytes</Text>
+        <Text style={styles.underText}>HACK YSU Foodbank</Text>
+        <Text style={styles.underText}>MCCTC Foodbank</Text>
+        <Text style={styles.underText}>Cincinatti Foodbank</Text>
+      </View>
     </View>
   );
 }
@@ -36,15 +34,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  leftContainer: {
+    top:100,
+    left:-110,
+    justifyContent: 'center'
+  },
   title: {
     fontSize: 34,
     fontWeight: 'bold',
-    marginVertical: 5
+    marginVertical: 5,
   },
   underText: {
     fontSize: 17,
     fontWeight: '600',
-    marginBottom: 90
   },
   image: {
     width: '50%',
@@ -67,5 +69,17 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  circle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    shadowColor: '#31A062',
+    shadowOpacity: 1,
+    shadowRadius: 15,
   },
 });
