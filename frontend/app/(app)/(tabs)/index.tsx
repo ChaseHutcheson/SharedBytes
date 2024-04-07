@@ -26,7 +26,9 @@ export default function TabOneScreen() {
     setModalVisible(true);
   };
 
-  
+  useMountEffect(() => {
+    foodBanksActions.execute();
+  });
 
   return (
     <SafeAreaView
@@ -132,16 +134,10 @@ export default function TabOneScreen() {
             </Flex>
             <ScrollView>
               <Flex direction="column">
-                {[
-                  { name: "HACK YSU Foodbank", address: "Address 1" },
-                  { name: "MCCTC Foodbank", address: "Address 2" },
-                  { name: "Cincinatti Foodbank", address: "Address 3" },
-                ].map((foodBank) => (
+                {foodBanksStatus.result?.map((foodBank: FoodBankSchema) => (
                   <TouchableOpacity
                     key={foodBank.name}
-                    onPress={() =>
-                      handleFoodBankClick(foodBank as FoodBankSchema)
-                    }
+                    onPress={() => handleFoodBankClick(foodBank)}
                   >
                     <Flex direction="column" mb={2}>
                       <Flex direction="row" align="center">
@@ -171,7 +167,11 @@ export default function TabOneScreen() {
           setModalVisible(!modalVisible);
         }}
       >
-        <BankModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedFoodBank={selectedFoodBank} ></BankModal>
+        <BankModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          selectedFoodBank={selectedFoodBank}
+        ></BankModal>
       </Modal>
     </SafeAreaView>
   );
