@@ -54,3 +54,22 @@ export const forgotPassword = async (email: string) => {
         "email": email
     })
 }
+
+export const changePassword = async (
+    current_password: string,
+    new_password: string, 
+  ) => {
+    try {
+      const result = await axios.put(
+        `${API_URL}/password/change`,
+        {
+          current_password,
+          new_password,
+        }
+      );
+      return result.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
