@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOAuth2, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
+	CreateFoodBankSchema,
 	FoodBankSchema,
 	UpdateFoodBankSchema,
 } from 'src/schemas/foodbanks/foodbanks.schemas';
@@ -20,6 +21,20 @@ export class FoodBanksController {
 	})
 	findAll(): Promise<FoodBankSchema[]> {
 		return this.foodbankService.findAll();
+	}
+
+	@Post('create')
+	@ApiOperation({ summary: 'Create a new Food Bank' })
+	@ApiResponse({
+		status: 200,
+		type: FoodBankSchema,
+	})
+	@ApiResponse({
+		status: 401,
+		description: 'Access Forbidden',
+	})
+	create(@Body() bank: CreateFoodBankSchema): Promise<FoodBankSchema> {
+		return this.foodbankService.create(bank);
 	}
 
 	@Get(':id')

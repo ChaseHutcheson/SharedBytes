@@ -46,3 +46,23 @@ export class UpdateFoodBankSchema {
 	@IsOptional()
 	beverages?: number;
 }
+
+export class CreateFoodBankSchema {
+	@ApiProperty({
+		example: 'Second Harvest Food Bank',
+		description: 'Food bank name',
+	})
+	name: string;
+
+	@ApiProperty({ example: '1 Tressell Way', description: 'Street address' })
+	address: string;
+
+	@ApiProperty({ example: 'Youngstown', description: 'City' })
+	city: string;
+
+	@ApiProperty({ example: 'OH', description: 'State abbreviation' })
+	state: string;
+
+	@ApiProperty({ example: '44555', description: 'Zip code' })
+	zipCode: number;
+}

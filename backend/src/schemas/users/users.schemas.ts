@@ -64,4 +64,8 @@ export class CreateUserSchema {
 }
 
 // Schema used for updating users
-export class UpdateUserSchema extends PartialType(CreateUserSchema) {}
+export class UpdateUserSchema extends PartialType(CreateUserSchema) {
+	@ApiProperty({ example: 'string', description: 'Current Password' })
+	@IsOptional()
+	currentPassword?: string;
+}

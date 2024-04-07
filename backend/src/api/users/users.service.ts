@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { hashPassword } from 'src/core/security';
+import { comparePassword, hashPassword } from 'src/core/security';
 import {
 	UpdateUserSchema,
 	UserProfileSchema,
@@ -41,7 +45,12 @@ export class UsersService {
 
 		if (update.email) user.email = update.email;
 		if (update.username) user.username = update.username;
-		if (update.password) user.password = hashPassword(update.password);
+		if (update.password) {
+			if (!comparePassword(update.currentPassword, user.password)) {
+				throw new BadRequestException();
+			}
+			user.password = hashPassword(update.password);
+		}
 
 		await this.usersRepository.save(user);
 

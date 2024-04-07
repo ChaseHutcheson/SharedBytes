@@ -1,8 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FoodBank } from 'src/entities/foodbanks/foodbank.entity';
-import { UpdateFoodBankSchema } from 'src/schemas/foodbanks/foodbanks.schemas';
+import {
+	CreateFoodBankSchema,
+	UpdateFoodBankSchema,
+} from 'src/schemas/foodbanks/foodbanks.schemas';
 import { Repository } from 'typeorm';
+import { FoodBanksModule } from './foodbanks.module';
 
 @Injectable()
 export class FoodBankService {
@@ -13,6 +17,10 @@ export class FoodBankService {
 
 	async findAll(): Promise<FoodBank[]> {
 		return this.foodbankRepository.find();
+	}
+
+	async create(bank: CreateFoodBankSchema): Promise<FoodBank> {
+		return this.foodbankRepository.save(bank);
 	}
 
 	async findById(id: number): Promise<FoodBank> {
