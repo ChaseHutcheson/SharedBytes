@@ -2,7 +2,7 @@
 import numpy, cv2, time, os
 from PIL import Image
 import torch
-import pandas
+import pandas, requests
 
 # capturing video in real time
 cap = cv2.VideoCapture(0)
@@ -16,7 +16,7 @@ def objRecognition():
     # print("1")
 
     # Model
-    model = torch.hub.load('./yolov5/', 'custom', path="./yolov5/runs/train/exp/weights/best.pt", source='local')
+    model = torch.hub.load('./yolov5/', 'custom', path="./yolov5/runs/train/exp5/weights/best.pt", source='local')
 
     # Image
     im = cv2.imread(".\curImg.png")
@@ -24,7 +24,7 @@ def objRecognition():
     # Inference
     results = model(im)
 
-    results.show()
+    # results.show() # TESTING
 
     #convert to pandas 
     data_frame = results.pandas().xyxy[0]
@@ -35,6 +35,14 @@ def objRecognition():
         labels.append(data_frame['name'][index])
     
     print(labels)
+    data = {
+        "CanNum":labels.count('Can'),
+        "SnackNum":labels.count('Snack'),
+        "DrinkNum":labels.count('Bottle')
+    }
+    port = "8000"
+    locId = "1"
+    requests.request("POST", f"http://localhost:{port}/{locId}", json=data)
 
 
 while cap.isOpened():
@@ -50,9 +58,9 @@ while cap.isOpened():
 
     for contour in contours:
         (x, y, w, h) = cv2.boundingRect(contour)
-        if cv2.contourArea(contour) < 10000:
+        if cv2.contourArea(contour) < 20000:
             continue
-        # time.sleep(5)
+        time.sleep(5)
         cv2.imwrite("./curImg.png", frame2)
         objRecognition()
     frame1 = frame2
