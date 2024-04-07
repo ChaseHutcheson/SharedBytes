@@ -1,8 +1,7 @@
 import React from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
@@ -56,7 +55,7 @@ export default function TabLayout() {
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => (
-            <Feather name="user" size={24} color={color} />
+            <FontAwesome name="gear" size={24} color={color} />
           ),
           tabBarInactiveTintColor: "black",
           tabBarActiveTintColor: "#31A062",
