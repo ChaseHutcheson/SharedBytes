@@ -5,7 +5,7 @@ import torch
 import pandas
 
 # capturing video in real time
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # reading frames sequentially
 ret, frame1 = cap.read()
@@ -16,13 +16,15 @@ def objRecognition():
     # print("1")
 
     # Model
-    model = torch.hub.load('./ai-testing/yolov5/', 'custom', path="./ai-testing/yolov5/runs/train/exp6/weights/best.pt", source='local')
+    model = torch.hub.load('./yolov5/', 'custom', path="./yolov5/runs/train/exp/weights/best.pt", source='local')
 
     # Image
-    im = cv2.imread(".\\ai-testing\\curImg.png")
+    im = cv2.imread(".\curImg.png")
 
     # Inference
     results = model(im)
+
+    results.show()
 
     #convert to pandas 
     data_frame = results.pandas().xyxy[0]
@@ -48,10 +50,10 @@ while cap.isOpened():
 
     for contour in contours:
         (x, y, w, h) = cv2.boundingRect(contour)
-        if cv2.contourArea(contour) < 30000:
+        if cv2.contourArea(contour) < 10000:
             continue
-        time.sleep(5)
-        cv2.imwrite("ai-testing/curImg.png", frame2)
+        # time.sleep(5)
+        cv2.imwrite("./curImg.png", frame2)
         objRecognition()
     frame1 = frame2
     ret, frame2 = cap.read()
