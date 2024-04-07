@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOAuth2, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/decorators/public.decorator';
 import {
 	CreateFoodBankSchema,
 	FoodBankSchema,
@@ -55,6 +56,7 @@ export class FoodBanksController {
 		return this.foodbankService.findById(id);
 	}
 
+	@Public()
 	@Patch(':id')
 	@ApiOperation({ summary: 'Update a Food Bank by id' })
 	@ApiResponse({
@@ -73,6 +75,7 @@ export class FoodBanksController {
 		@Param('id') id: number,
 		@Body() update: UpdateFoodBankSchema
 	): Promise<FoodBankSchema> {
+		// TODO: Send push notifications to users
 		return this.foodbankService.update(id, update);
 	}
 }

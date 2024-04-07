@@ -28,7 +28,7 @@ export class UsersService {
 			.createQueryBuilder('user')
 			.select(['user.email', 'user.id'])
 			.addSelect('user.password')
-			.where('user.email = :email', { email })
+			.where('LOWER(user.email) = LOWER(:email)', { email })
 			.getOne();
 	}
 
