@@ -27,12 +27,11 @@ export class AuthController {
 		status: 400,
 		description: 'User already exists',
 	})
-	async register(@Body() CreateUserSchema: CreateUserSchema) {
-		console.log(CreateUserSchema);
-		if (await this.authService.doesUserExist(CreateUserSchema.email)) {
+	async register(@Body() create: CreateUserSchema) {
+		if (await this.authService.doesUserExist(create.email)) {
 			throw new BadRequestException('User already exists');
 		}
-		return await this.authService.register(CreateUserSchema);
+		return await this.authService.register(create);
 	}
 
 	@Public()
