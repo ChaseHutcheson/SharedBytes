@@ -13,10 +13,30 @@ import { useAuth } from "@/context/AuthContext";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
+import { UpdateUserSchema, updateProfile } from "@/api/auth";
+import { useState } from "react";
+import { useAsync } from "@react-hookz/web";
 
 export default function TabTwoScreen() {
   const { user } = useAuth();
   const router = useRouter();
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const handleEmailChange = async () => {
+    if (user) {
+      const update: UpdateUserSchema = { email: newEmail };
+      await updateProfile(user.id, update);
+    }
+  };
+
+  const handlePasswordChange = async () => {
+    if (user && newPassword === confirmPassword) {
+      const update: UpdateUserSchema = { password: newPassword };
+      await updateProfile(user.id, update);
+    }
+  };
 
   if (!user) {
     return null;
@@ -47,16 +67,21 @@ export default function TabTwoScreen() {
         </VStack>
 
         <Box w="80%" p={4} my={5} rounded="md" bg="white" shadow={1}>
-          <FormControl isReadOnly>
+          <FormControl>
             <FormControl.Label>Current Email</FormControl.Label>
             <Input
               placeholder={user?.email}
-              isReadOnly={true}
+              isReadOnly
               color="gray.500"
+              bg="gray.200"
             />
             <FormControl.Label>New Email</FormControl.Label>
-            <Input placeholder="New Email" type="text" />
-            <Button mt={5} bgColor={'#31A062'} onPress={() => {}}>
+            <Input
+              placeholder="New Email"
+              type="text"
+              onChangeText={setNewEmail}
+            />
+            <Button mt={5} bgColor={"#31A062"} onPress={handleEmailChange}>
               Save Changes
             </Button>
           </FormControl>
@@ -68,14 +93,21 @@ export default function TabTwoScreen() {
             <Input
               placeholder="Current Password"
               type="password"
-              isReadOnly={true}
               color="gray.500"
             />
             <FormControl.Label>New Password</FormControl.Label>
-            <Input placeholder="New Password" type="password" />
+            <Input
+              placeholder="New Password"
+              type="password"
+              onChangeText={setNewPassword}
+            />
             <FormControl.Label>Confirm New Password</FormControl.Label>
-            <Input placeholder="Confirm New Password" type="password" />
-            <Button mt={5} bgColor={'#31A062'} onPress={() => {}}>
+            <Input
+              placeholder="Confirm New Password"
+              type="password"
+              onChangeText={setConfirmPassword}
+            />
+            <Button mt={5} bgColor={"#31A062"} onPress={handlePasswordChange}>
               Save Changes
             </Button>
           </FormControl>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "../constants/Types";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
@@ -34,6 +34,14 @@ export const AuthProvider = ({ children }: any) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (authToken) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, [authToken]);
 
   const contextSignIn = async (email: string, password: string) => {
     setLoading(true);

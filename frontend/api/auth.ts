@@ -2,6 +2,13 @@ import axios from "axios";
 import { API_URL } from "@/constants/Config";
 import validateEmail from "@/utils/validateEmail";
 
+export interface UpdateUserSchema {
+    email?: string;
+    username?: string;
+    password?: string;
+
+}
+
 export const signIn = async (email: string, password: string) => {
     const isEmailValid = validateEmail(email)
     if (isEmailValid) {
@@ -55,21 +62,14 @@ export const forgotPassword = async (email: string) => {
     })
 }
 
-export const changePassword = async (
-    current_password: string,
-    new_password: string, 
-  ) => {
+export const updateProfile = async (id: number, update: UpdateUserSchema) => {
     try {
-      const result = await axios.put(
-        `${API_URL}/password/change`,
-        {
-          current_password,
-          new_password,
-        }
-      );
-      return result.data;
+        const response = await axios.patch(`${API_URL}/users/me/update`, update)
+        console.log("Profile update successful!")
+        return response.data
     } catch (error) {
-      console.error(error);
-      throw error;
+        console.error(error)
+        return error
     }
-  };
+}
+
