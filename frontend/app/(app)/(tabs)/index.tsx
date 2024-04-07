@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import { useAuth } from "@/context/AuthContext";
 import { Feather } from "@expo/vector-icons";
 import { Box, Center, Flex, Icon, ScrollView, View } from "native-base";
-import { FoodBankSchema, getFooddBanks } from "@/api/foodBank";
+import { FoodBankSchema, getFoodBanks } from "@/api/foodBank";
 import { useAsync, useMountEffect } from "@react-hookz/web";
 import { useEffect, useState } from "react";
 import {
@@ -13,10 +13,11 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import BankModal from "@/components/BankModal";
 
 export default function TabOneScreen() {
   const { user } = useAuth();
-  const [foodBanksStatus, foodBanksActions] = useAsync(getFooddBanks);
+  const [foodBanksStatus, foodBanksActions] = useAsync(getFoodBanks);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedFoodBank, setSelectedFoodBank] =
     useState<FoodBankSchema | null>(null);
@@ -24,6 +25,8 @@ export default function TabOneScreen() {
     setSelectedFoodBank(foodBank);
     setModalVisible(true);
   };
+
+  
 
   return (
     <SafeAreaView
@@ -105,7 +108,6 @@ export default function TabOneScreen() {
                 >
                   1,234
                 </Text>
-                <Text style={{ fontSize: 17, fontWeight: "600" }}>status</Text>
               </View>
             </Center>
           </View>
@@ -169,39 +171,7 @@ export default function TabOneScreen() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0,0,0,0.5)",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "white",
-              padding: 20,
-              borderRadius: 10,
-              width: "80%",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {selectedFoodBank?.name}
-            </Text>
-            <Text style={{ fontSize: 16 }}>{selectedFoodBank?.address}</Text>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Items</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Box color="danger.400" bgColor="danger.400" borderRadius={40}>
-                <Text>Hide Modal</Text>
-              </Box>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <BankModal modalVisible={modalVisible} setModalVisible={setModalVisible} selectedFoodBank={selectedFoodBank} ></BankModal>
       </Modal>
     </SafeAreaView>
   );

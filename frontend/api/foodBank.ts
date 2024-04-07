@@ -13,13 +13,23 @@ export interface FoodBankSchema {
     beverages: number;
 }
 
-export const getFooddBanks = async () => {
+export const getFoodBanks = async () => {
     try {
         const response = await axios.get(`${API_URL}/foodbanks/all`)
         console.log("Food Banks retrieved successfully!")
         return response.data
     } catch (error) {
         console.error(error)
+        return error
+    }
+}
+
+export const getFoodBankItems = async (bankNum:number) => {
+    try {
+        const response = await axios.get(`${API_URL}/foodbanks/${bankNum}`)
+        return response.data
+    } catch (error) {
+        console.log(error)
         return error
     }
 }
