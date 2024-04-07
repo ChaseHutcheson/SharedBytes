@@ -33,7 +33,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: any) => {
     const [user, setUser] = useState<User | null>(null);
     const [authToken, setAuthToken] = useState<string | null>(null);
-    const [isAuthenticated, setAuthenticated] = useState<boolean>(true);
+    const [isAuthenticated, setAuthenticated] = useState<boolean>(false);
     const [isLoading, setLoading] = useState<boolean>(true);
 
     const contextSignIn = async (email: string, password: string) => {
