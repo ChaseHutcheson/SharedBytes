@@ -41,7 +41,7 @@ async function bootstrap() {
 
 	// start application
 	await app.listen(PORT);
-	console.log(`Application is running on: http://localhost:${PORT}`);
-	console.log(`View the API Documentation at: http://localhost:${PORT}/docs`);
+	console.log(`Server listening at http://localhost:${PORT}`);
+	console.log(`Swagger docs at http://localhost:${PORT}/docs`);
 }
 bootstrap();
